@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import matplotlib
 import os
+import pickle
 
 # 오류 해소
 matplotlib.use('TkAgg')
@@ -41,6 +42,11 @@ df_word = df_word.groupby('word', as_index= False) \
 #데이터 프레임 딕셔너리로 변환
 dic_word = df_word.set_index('word').to_dict()['n']
 
+pkl_name = json_file
+#텍스트 마이닝이 완료된 데이터 프레임 피클로 저장
+with open('/Users/hayea/Documents/flask/pkl_object/%s.pkl' %pkl_name, 'wb') as f:
+    pickle.dump(dic_word, f, pickle.HIGHEST_PROTOCOL)
+
 # # 이미지 불러오기
 # icon = PIL.Image.open('/Users/hayea/Documents/Python/cloud.png')
 
@@ -49,31 +55,25 @@ dic_word = df_word.set_index('word').to_dict()['n']
 # img.paste(icon, icon)
 # img = np.array(img)
 
-# 맥 폰트 오류
-rc('font', family='AppleGothic')
-plt.rcParams['axes.unicode_minus'] = False
+# # 맥 폰트 오류
+# rc('font', family='AppleGothic')
+# plt.rcParams['axes.unicode_minus'] = False
 
-# wc 생성
-wc = WordCloud(
-    random_state= 1234,
-    font_path= 'AppleGothic',
-    width =400,
-    height= 400,
-    background_color= 'white'
-    # mask = img
-)
-#워드클라우드 만들기
-img_wordcloud = wc.generate_from_frequencies(dic_word)
+# # wc 생성
+# wc = WordCloud(
+#     random_state= 1234,
+#     font_path= 'AppleGothic',
+#     width =400,
+#     height= 400,
+#     background_color= 'white'
+#     # mask = img
+# )
+# #워드클라우드 만들기
+# img_wordcloud = wc.generate_from_frequencies(dic_word)
 
-#워드 클라우드 출력하기
-plt.figure(figsize=(10, 10))
-plt.axis('off')
-plt.imshow(img_wordcloud)
-plt.show()
-plt.close()
-json_file.close
-
-# MODEL_NAME = 'model.pkl'
-
-# import pickle
-# pickle.dump(model, open(MODEL_NAME, 'wb'))
+# #워드 클라우드 출력하기
+# plt.figure(figsize=(10, 10))
+# plt.axis('off')
+# plt.imshow(img_wordcloud)
+# plt.show()
+# plt.close()

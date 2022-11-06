@@ -69,7 +69,7 @@ def main():
         
     print('전체 검색 : %d 건' %total)
         
-    with open('%s.json' % srcText, 'w', encoding='utf-8') as outfile:
+    with open('/Users/hayea/Documents/flask/Json_db/%s.json' % srcText, 'w', encoding='utf-8') as outfile:
         jsonFile = json.dumps(jsonResult, indent=4, sort_keys = True, ensure_ascii = False)
             
         outfile.write(jsonFile)
