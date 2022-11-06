@@ -1,7 +1,7 @@
 from flask import Flask
 import pandas as pd
 import konlpy
-from wordcloud import WordCloud # 워드클라우드 생성
+from word_cloud import WordCloud # 워드클라우드 생성
 import PIL
 import numpy as np
 import matplotlib.pyplot as plt
