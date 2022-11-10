@@ -8,15 +8,17 @@ from matplotlib import rc
 import matplotlib
 import os
 import pickle
+import datetime
 
 # 오류 해소
 matplotlib.use('TkAgg')
 
 # 분석할 파일
 json_file = input('토픽모델링할 기사제목 입력 : ')
+time = datetime.datetime.now()
 
 #데이터 불러오기
-df = pd.read_json(("/Users/hayea/Documents/flask/Json_db/%s.json" %json_file),encoding='UTF-8')
+df = pd.read_json(("/Users/hayea/Documents/flask/Json_db/%s%s%s.json" %(time.month ,time.day, json_file)),encoding='UTF-8')
 
 #불필요한 문자 제거
 df['title'] = df['title'].str.replace('[^가-힣]|%s','' , regex = True)
@@ -42,9 +44,11 @@ df_word = df_word.groupby('word', as_index= False) \
 #데이터 프레임 딕셔너리로 변환
 dic_word = df_word.set_index('word').to_dict()['n']
 
+# 파일 이름
+time = datetime.datetime.now()
 pkl_name = json_file
 #텍스트 마이닝이 완료된 데이터 프레임 피클로 저장
-with open('/Users/hayea/Documents/flask/pkl_object/%s.pkl' %pkl_name, 'wb') as f:
+with open('/Users/hayea/Documents/flask/pkl_object/%s%s%s.pkl' %(time.month ,time.day, pkl_name), 'wb') as f:
     pickle.dump(dic_word, f, pickle.HIGHEST_PROTOCOL)
 
 # # 이미지 불러오기

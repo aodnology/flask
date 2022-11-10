@@ -1,6 +1,7 @@
 import urllib.request
 import datetime
 import json
+import sqlite3
 
 id = "_OFyPAF90afrAMvMb1zP"
 secret = "S0fSrEpNHR"
@@ -55,6 +56,8 @@ def main():
     srcText = input('검색어를 입력하세요: ')
     cnt = 0
     jsonResult = []
+
+    
     
     jsonResponse = getNaverSearch(node, srcText, 1, 100)  #[CODE 2]
     total = jsonResponse['total']
@@ -66,16 +69,24 @@ def main():
             
         start = jsonResponse['start'] + jsonResponse['display']
         jsonResponse = getNaverSearch(node, srcText, start, 100)   #[CODE 2]
-        
+    
+    #sqlite3 저장
+    time = datetime.datetime.now()
+    # conn = sqlite3.connect('news.db')
+
+    # c = conn.cursor() # 커서 생성
+    # c.execute()
+    # json저장        
     print('전체 검색 : %d 건' %total)
-        
-    with open('/Users/hayea/Documents/flask/Json_db/%s.json' % srcText, 'w', encoding='utf-8') as outfile:
+
+    time = datetime.datetime.now()        
+    with open('/Users/hayea/Documents/flask/Json_db/%s%s%s.json' %(time.month ,time.day ,srcText), 'w', encoding='utf-8') as outfile:
         jsonFile = json.dumps(jsonResult, indent=4, sort_keys = True, ensure_ascii = False)
             
         outfile.write(jsonFile)
             
     print("가져온 데이터 : %d 건" %(cnt))
-    print('%s_naver_%s.json SAVED' % (srcText, node))
+    print('%s.json SAVED' % (srcText))
 
 if __name__ == '__main__':
     main()                  
