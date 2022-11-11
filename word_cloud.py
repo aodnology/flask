@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 from matplotlib import rc
-import matplotlib
 from wordcloud import WordCloud
 import pickle
 import datetime
@@ -34,8 +33,13 @@ time = datetime.datetime.now()
 plt.figure(figsize=(5, 5))
 plt.axis('off')
 plt.imshow(img_wordcloud)
-plt.show()
 
+# plt.show(), plt.savefig() 둘다 사용하는 것은 불가능
+# plt.show()
 # 이미지를 불러올 경우를 대비해 이미지파일은 날짜 정보 입력 하지않음
-plt.savefig('/Users/hayea/Documents/flask/img/%s.png' %key_word)
+plt.savefig(
+    '/Users/hayea/Documents/flask/img/%s.png' %key_word,
+    facecolor='#eeeeee',
+    format='png'
+    )
 plt.close()
